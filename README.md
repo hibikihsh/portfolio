@@ -1,5 +1,5 @@
 # my port folio
-https://hibikihsh.dev/about
+https://hibikihsh.dev
 
 <br />
 
