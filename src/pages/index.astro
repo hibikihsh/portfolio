@@ -98,7 +98,7 @@ const posts = (await getCollection("blog")).sort(
                         {post.data.heroImage ? (
                           <img width={350} src={post.data.heroImage} alt="" />
                         ) : (
-                          <div class="emoji-image w-full bg-gray-200 rounded-lg grid place-content-center h-[175px]">
+                          <div class="emoji-image w-full sm:w-[350px] bg-gray-200 rounded-lg grid place-content-center h-[175px]">
                             <div class="text-[75px]">{post.data.emoji}</div>
                           </div>
                         )}
