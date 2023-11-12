@@ -1,3 +1,3 @@
-# my port folio
+# my portfolio
 https://hibikihsh.dev
 
