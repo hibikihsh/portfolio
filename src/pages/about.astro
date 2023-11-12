@@ -1,0 +1,54 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { ViewTransitions } from "astro:transitions";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
+
+    <script
+      type="module"
+      src="https://unpkg.com/@splinetool/viewer@0.9.455/build/spline-viewer.js"
+    ></script>
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+
+    <main transition:animate="fade">
+      <h3 class="pt-0">プロフィール</h3>
+      <div>
+        <p>星 響です。</p>
+        <p>デザインとシステム開発とアスパラの会社でエンジニアをしています。</p>
+      </div>
+
+      <h3>経歴</h3>
+      <ul class="list-disc pl-5">
+        <li>
+          <p>2015-2020 仙台高等専門学校 電気システム工学科</p>
+        </li>
+        <li>
+          <p>2021-2022 弘前大学 電子情報工学科</p>
+        </li>
+      </ul>
+
+      <div
+        class="flex h-[200px] items-center overflow-hidden sm:h-[450px] my-10"
+      >
+        <spline-viewer
+          loading-anim
+          url="https://prod.spline.design/zPKwzmnwPkvm3ewl/scene.splinecode"
+          class="h-[800px] w-full"
+        >
+        </spline-viewer>
+      </div>
+    </main>
+
+    <Footer />
+  </body>
+</html>
