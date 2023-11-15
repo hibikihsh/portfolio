@@ -1,4 +1,5 @@
 ---
+id: 1
 title: "Markdownスタイルガイド"
 description: "mdファイルでコンテンツを書いていく時に使うマークアップ記法について。"
 pubDate: "2023/10/01"

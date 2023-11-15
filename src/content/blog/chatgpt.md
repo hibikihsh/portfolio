@@ -1,4 +1,5 @@
 ---
+id: 3
 title: "「ChatGPT/LangChainによるチャットシステム構築実践入門」を読んで"
 description: "Lorem ipsum dolor sit amet"
 pubDate: "2023/11/10"

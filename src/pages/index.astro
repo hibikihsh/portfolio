@@ -82,7 +82,7 @@ const posts = (await getCollection("blog")).sort(
 
   <body>
     <Header />
-    <main transition:animate="fade">
+    <main>
       <section>
         <ul class="grid sm:gap-8 list-none pl-0">
           {
@@ -96,16 +96,31 @@ const posts = (await getCollection("blog")).sort(
                         class="sm:flex items-center"
                       >
                         {post.data.heroImage ? (
-                          <img width={350} src={post.data.heroImage} alt="" />
+                          <img
+                            width={350}
+                            src={post.data.heroImage}
+                            alt=""
+                            transition:name={`img-${post.data.id}`}
+                          />
                         ) : (
-                          <div class="emoji-image w-full sm:w-[350px] bg-gray-200 rounded-lg grid place-content-center h-[175px]">
-                            <div class="text-[75px]">{post.data.emoji}</div>
+                          <div transition:name={`img-${post.data.id}`}>
+                            <div class="emoji-image w-full sm:w-[350px] bg-gray-200 rounded-lg grid place-content-center h-[175px]">
+                              <div class="text-[75px]">{post.data.emoji}</div>
+                            </div>
                           </div>
                         )}
 
                         <div class="sm:pl-4 flex-1">
-                          <p class="title">{post.data.title}</p>
-                          <p class="date">
+                          <p
+                            class="title"
+                            transition:name={`title-${post.data.id}`}
+                          >
+                            {post.data.title}
+                          </p>
+                          <p
+                            class="date"
+                            transition:name={`date-${post.data.id}`}
+                          >
                             <FormattedDate date={post.data.pubDate} />
                           </p>
                         </div>
