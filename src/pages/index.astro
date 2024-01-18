@@ -83,6 +83,18 @@ const posts = (await getCollection("blog")).sort(
   <body>
     <Header />
     <main>
+      <ul class="list-none flex pl-0 gap-2 pb-8">
+        <li class="px-4 py-1 bg-[#E5E7EB] rounded-full font-bold">
+          <button>すべて</button>
+        </li>
+        <li class="px-4 py-1 rounded-full font-bold">
+          <button> プログラミング</button>
+        </li>
+        <li class="px-4 py-1 rounded-full font-bold">
+          <button> デザイン</button>
+        </li>
+      </ul>
+
       <section>
         <ul class="grid sm:gap-8 list-none pl-0">
           {
@@ -104,7 +116,7 @@ const posts = (await getCollection("blog")).sort(
                           />
                         ) : (
                           <div transition:name={`img-${post.data.id}`}>
-                            <div class="emoji-image w-full sm:w-[350px] bg-gray-200 rounded-lg grid place-content-center h-[175px]">
+                            <div class="emoji-image w-full sm:w-[350px] bg-gray-200 rounded-lg grid place-content-center h-[200px]">
                               <div class="text-[75px]">{post.data.emoji}</div>
                             </div>
                           </div>
