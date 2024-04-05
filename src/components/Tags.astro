@@ -1,0 +1,30 @@
+---
+const { handleSelect } = Astro.props;
+---
+
+<ul id="tabs" class="list-none flex pl-0 gap-2 pb-8">
+  <li>
+    <button class="px-4 py-1 bg-[#E5E7EB] rounded-full font-bold">すべて</button
+    >
+  </li>
+  <li>
+    <button class="px-4 py-1 rounded-full font-bold"> プログラミング</button>
+  </li>
+  <li>
+    <button class="px-4 py-1 rounded-full font-bold"> デザイン</button>
+  </li>
+</ul>
+
+<script>
+  const buttons = document.querySelectorAll("button");
+
+  // 各ボタンがクリックされたときのハンドリング
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((button) => {
+        button.classList.remove("bg-[#E5E7EB]");
+      });
+      button.classList.add("bg-[#E5E7EB]");
+    });
+  });
+</script>
