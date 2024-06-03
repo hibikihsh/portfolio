@@ -4,13 +4,14 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { ViewTransitions } from "astro:transitions";
+
+import Articles from "../components/Articles.astro";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <ViewTransitions />
 
     <script
       type="module"
@@ -20,9 +21,10 @@ import { ViewTransitions } from "astro:transitions";
   <body>
     <Header title={SITE_TITLE} />
 
-    <main transition:animate="fade">
-      <h2 class="mb-6 text-3xl tracking-wide pt-0">Gallery</h2>
-      <div class="text-center">🚧　工事中　🚧</div>
+    <main>
+      <h2 class="mb-6 text-3xl tracking-wide pt-0">Articles</h2>
+
+      <Articles />
     </main>
 
     <Footer />
