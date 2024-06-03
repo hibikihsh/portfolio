@@ -1,0 +1,119 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import { ViewTransitions } from "astro:transitions";
+import Sample from "./Sample";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+);
+---
+
+<section>
+  <Sample client:load />
+
+  <ul class="grid sm:gap-8 list-none pl-0 sm:grid-cols-3">
+    {
+      posts
+        .map((post) => {
+          if (post.data.isPublished) {
+            return (
+              <li>
+                <a href={`/blog/${post.slug}/`}>
+                  {post.data.heroImage ? (
+                    <img
+                      src={post.data.heroImage}
+                      alt=""
+                      transition:name={`img-${post.data.id}`}
+                      class="w-full"
+                    />
+                  ) : (
+                    <div transition:name={`img-${post.data.id}`}>
+                      <div class="emoji-image w-full bg-gray-200 rounded-lg grid place-content-center h-[200px]">
+                        <div class="text-[75px]">{post.data.emoji}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div class="sm:pl-2 flex-1 pt-2">
+                    <p class="title" transition:name={`title-${post.data.id}`}>
+                      {post.data.title}
+                    </p>
+                    <p class="date" transition:name={`date-${post.data.id}`}>
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                  </div>
+                </a>
+              </li>
+            );
+          }
+        })
+        .reverse()
+    }
+  </ul>
+</section>
+
+<style>
+  h1 {
+    margin-top: 2em;
+  }
+  .title {
+    margin: 0;
+    padding: 0;
+    color: rgb(var(--black));
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 1.25rem;
+    transition: all 0.3s ease-in-out;
+  }
+  .date {
+    margin: 0;
+    padding: 0;
+    color: rgb(var(--gray));
+    font-size: 1rem;
+    padding-top: 0.5em;
+    transition: all 0.3s ease-in-out;
+  }
+
+  img,
+  figure {
+    transition: all 0.3s ease-in-out;
+  }
+  ul li a:hover h4,
+  ul li a:hover .date {
+    color: rgb(var(--accent));
+  }
+  ul a:hover img,
+  figure:hover {
+    /* box-shadow: var(--box-shadow); */
+  }
+  a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 620px) {
+    ul {
+      gap: 3rem;
+    }
+    ul li {
+      width: 100%;
+      text-align: left;
+    }
+    ul li:first-child {
+      margin-bottom: 0;
+    }
+    ul li:first-child .title {
+    }
+    .title {
+      padding-top: 0.5rem;
+      font-size: 1.25rem;
+    }
+    .date {
+      font-size: 0.875rem;
+    }
+  }
+</style>

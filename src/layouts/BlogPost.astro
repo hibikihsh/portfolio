@@ -59,19 +59,8 @@ const { id, title, description, pubDate, updatedDate, heroImage, emoji } =
     <main>
       <article>
         <div class="prose">
-          <div class="title">
-            <div class="date" transition:name={`date-${id}`}>
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1 class="pt-2" transition:name={`title-${id}`}>{title}</h1>
-            <div class="hero-image py-6">
+          <div class="title grid gap-2 py-6">
+            <div class="hero-image">
               {
                 heroImage ? (
                   <img
@@ -90,6 +79,17 @@ const { id, title, description, pubDate, updatedDate, heroImage, emoji } =
                 )
               }
             </div>
+            <div class="date pt-6" transition:name={`date-${id}`}>
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <div class="last-updated-on">
+                    Last updated on <FormattedDate date={updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1 class="pt-1" transition:name={`title-${id}`}>{title}</h1>
           </div>
 
           <div class="max-w-[600px] mx-auto">
