@@ -61,7 +61,7 @@ main();
 
 complication変数内では、[Chat Completions API](https://platform.openai.com/docs/guides/text-generation/chat-completions-api)を利用しています。Chat Completions APIはメッセージを入力として受け取り、LLMが生成した出力をメッセージとして返します。
 
-messageオブジェクトの配列内のroleプロパティにはsystem/user/assistantが設定できます。
+messagesの配列内のroleプロパティにはsystem/user/assistantが設定できます。
 
 - system: アシスタントの動作設定
 - user: 入力（ユーザー）
