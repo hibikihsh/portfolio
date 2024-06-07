@@ -18,12 +18,11 @@ const posts = (await getCollection("blog")).sort(
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <ViewTransitions />
-
-    <script
+    <!-- <script
       type="module"
       src="https://unpkg.com/@splinetool/viewer@0.9.455/build/spline-viewer.js"
-    ></script>
+    ></script> -->
+    <ViewTransitions />
 
     <style>
       h1 {
@@ -85,7 +84,7 @@ const posts = (await getCollection("blog")).sort(
         }
       }
 
-      .typing-effect {
+      /* .typing-effect {
         color: white;
         width: 20ch;
         animation:
@@ -108,7 +107,7 @@ const posts = (await getCollection("blog")).sort(
         50% {
           border-color: transparent;
         }
-      }
+      } */
     </style>
   </head>
 
@@ -116,24 +115,24 @@ const posts = (await getCollection("blog")).sort(
     <Header />
 
     <main>
-      <div class="w-full h-[500px] bg-[#333333]">
+      <!-- <div class="w-full h-[500px] bg-[#333333]">
         <div class="grid place-content-center h-full">
-          <div class="typing-effect">Hi. My name is Hibiki Hoshi.</div>
+          <div class="typing-effect"></div>
         </div>
-      </div>
+      </div> -->
 
-      <section class="pt-10 sm:pt-20">
+      <section>
         <h2 class="mb-6 border-b-[1px] text-3xl tracking-wide">Articles</h2>
         <Articles />
       </section>
 
       <section class="pt-10 sm:pt-20">
         <div transition:animate="fade">
-          <h2 class="mb-6 border-b-[1px] text-3xl tracking-wide">Profile</h2>
+          <h2 class="mb-4 border-b-[1px] text-3xl tracking-wide">Profile</h2>
 
-          <div class="sm:flex">
+          <!-- <div class="">
             <div
-              class="flex h-[200px] items-center overflow-hidden sm:h-[450px] mb-10 sm:w-[600px]"
+              class="flex h-[200px] items-center overflow-hidden sm:h-[450px] mb-10 sm:max-w-[600px]"
             >
               <div>
                 <spline-viewer
@@ -143,85 +142,84 @@ const posts = (await getCollection("blog")).sort(
                 >
                 </spline-viewer>
               </div>
-            </div>
+            </div> -->
 
-            <div class="sm:pt-10">
-              <h3 class="border-b-[1px]">プロフィール</h3>
-              <ul class="list-disc pl-5">
+          <div class="sm:max-w-[600px] pl-4">
+            <h3 class="">プロフィール</h3>
+            <ul class="list-disc pl-5">
+              <li>
+                <p class="pt-4 font-bold">星 響</p>
+              </li>
+              <li>
+                <p>1999年生まれ</p>
                 <li>
-                  <p class="pt-4 font-bold">星 響</p>
+                  <p>🍣 宮城県塩竈市出身</p>
                 </li>
                 <li>
-                  <p>1999年生まれ</p>
-                  <li>
-                    <p>🍣 宮城県塩竈市出身</p>
-                  </li>
-                  <li>
-                    <p>🍎 青森県弘前市在住</p>
-                  </li>
+                  <p>🍎 青森県弘前市在住</p>
                 </li>
-              </ul>
+              </li>
+            </ul>
 
-              <h3 class="border-b-[1px]">趣味</h3>
-              <ul class="list-disc
+            <h3 class="">趣味</h3>
+            <ul class="list-disc
                 pl-5">
-                <li>
-                  <p>スポーツ全般 🏀 ⚽️ ⚾️</p>
-                </li>
-                <li>
-                  <p>温泉 ♨️</p>
-                </li>
-                <li>
-                  <p>スノボ ⛄️</p>
-                </li>
-              </ul>
+              <li>
+                <p>スポーツ全般 🏀 ⚽️ ⚾️</p>
+              </li>
+              <li>
+                <p>温泉 ♨️</p>
+              </li>
+              <li>
+                <p>スノボ ⛄️</p>
+              </li>
+            </ul>
 
-              <h3 class="border-b-[1px]">経歴</h3>
-              <ul class="list-disc
+            <h3 class="">経歴</h3>
+            <ul class="list-disc
                 pl-5">
-                <li>
-                  <p>2015-2020 仙台高等専門学校 電気システム工学科</p>
-                </li>
-                <li>
-                  <p>2021-2022 弘前大学 電子情報工学科</p>
-                </li>
-                <li>
-                  <p>
-                    2022-2024 弘前大学 大学院 地域共創科学研究科（心理学専攻）
-                  </p>
-                </li>
-              </ul>
-            </div>
+              <li>
+                <p>2015-2020 仙台高等専門学校 電気システム工学科</p>
+              </li>
+              <li>
+                <p>2021-2022 弘前大学 電子情報工学科</p>
+              </li>
+              <li>
+                <p>
+                  2022-2024 弘前大学 大学院 地域共創科学研究科（心理学専攻）
+                </p>
+              </li>
+            </ul>
           </div>
         </div>
-
-        <section>
-          <h2 class="mb-6 border-b-[1px]"></h2>
-
-          <div class="social-links flex">
-            <a
-              href="https://github.com/hibikihsh"
-              target="_blank"
-              class="hover:opacity-80 transition-all"
-            >
-              <svg
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-                width="40"
-                height="40"
-                astro-icon="social/github"
-              >
-                <path
-                  fill="currentColor"
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-                >
-                </path>
-              </svg>
-            </a>
-          </div>
-        </section>
       </section>
-      <Footer />
+
+      <section>
+        <h2 class="mb-6 border-b-[1px]"></h2>
+
+        <div class="social-links flex">
+          <a
+            href="https://github.com/hibikihsh"
+            target="_blank"
+            class="hover:opacity-80 transition-all"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+              width="40"
+              height="40"
+              astro-icon="social/github"
+            >
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              >
+              </path>
+            </svg>
+          </a>
+        </div>
+      </section>
     </main>
+    <Footer />
   </body>
 </html>
