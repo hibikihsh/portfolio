@@ -14,27 +14,27 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <section>
-  <ul class="grid gap-0 sm:gap-8 list-none pl-0 grid-cols-2 sm:grid-cols-3">
+  <ul class="grid gap-3 sm:gap-4 list-none pl-0">
     {
       posts
         .map((post) => {
           if (post.data.isPublished) {
             return (
               <li>
-                <a href={`/blog/${post.slug}/`}>
-                  <div class="emoji-image rounded-lg grid grid-cols-subgrid w-full text-center bg-white shadow">
-                    <div
-                      class="text-[75px] text-center"
-                      transition:name={`img-${post.data.id}`}
-                    >
-                      {post.data.emoji}
-                    </div>
+                <a
+                  href={`/blog/${post.slug}/`}
+                  transition:name={`img-${post.data.id}`}
+                >
+                  <div class="emoji-image rounded-lg w-full text-center bg-white shadow flex items-center p-4 text-sm sm:text-base">
+                    <p class="date w-32 sm:w-36 text-left">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
 
-                    <div class="flex-1 pb-4">
-                      <p class="font-bold">{post.data.title}</p>
+                    <div class="flex pl-2 sm:pl-4">
+                      {/* <div class="text-xl text-center">{post.data.emoji}</div> */}
 
-                      <p class="date">
-                        <FormattedDate date={post.data.pubDate} />
+                      <p class="font-bold pb-0 text-sm sm:text-base flex items-center">
+                        {post.data.title}
                       </p>
                     </div>
                   </div>
@@ -78,9 +78,6 @@ const posts = (await getCollection("blog")).sort(
   }
 
   @media (max-width: 620px) {
-    ul {
-      gap: 3rem;
-    }
     ul li {
       width: 100%;
       text-align: left;
