@@ -112,7 +112,7 @@ const posts = (await getCollection("blog")).sort(
   </head>
 
   <body>
-    <main class="pt-20 sm:max-w-3xl mx-auto grid gap-10">
+    <main class="pt-10 sm:pt-20 sm:max-w-3xl mx-auto grid gap-10">
       <section>
         <figure class="size-24 bg-gray-400 rounded-full overflow-hidden shadow">
           <img src="/icon.jpg" alt="" />
@@ -131,11 +131,7 @@ const posts = (await getCollection("blog")).sort(
         </div>
       </section>
 
-      <section>
-        <h2 class="text-2xl pb-4">Links</h2>
-        <figure class="size-24 bg-gray-200 rounded-lg"></figure>
-      </section>
+      <Footer />
     </main>
-    <Footer />
   </body>
 </html>
