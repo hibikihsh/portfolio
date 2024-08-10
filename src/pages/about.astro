@@ -1,0 +1,74 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { ViewTransitions } from "astro:transitions";
+
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
+
+    <!-- <script
+          type="module"
+          src="https://unpkg.com/@splinetool/viewer@0.9.455/build/spline-viewer.js"
+        ></script> -->
+  </head>
+  <body>
+    <section class="pt-20 max-w-3xl mx-auto grid gap-10">
+      <div transition:animate="fade">
+        <h2 class="text-3xl tracking-wide">私について</h2>
+
+        <div class="">
+          <h3 class="">プロフィール</h3>
+          <ul class="list-disc pl-5">
+            <li>
+              <p class="pt-4 font-bold">星 響</p>
+            </li>
+            <li>
+              <p>1999年生まれ</p>
+              <li>
+                <p>🍣 宮城県塩竈市出身</p>
+              </li>
+              <li>
+                <p>🍎 青森県弘前市在住</p>
+              </li>
+            </li>
+          </ul>
+
+          <h3 class="">趣味</h3>
+          <ul class="list-disc
+                pl-5">
+            <li>
+              <p>スポーツ全般 🏀 ⚽️ ⚾️</p>
+            </li>
+            <li>
+              <p>温泉 ♨️</p>
+            </li>
+            <li>
+              <p>スノボ ⛄️</p>
+            </li>
+          </ul>
+
+          <h3 class="">経歴</h3>
+          <ul class="list-disc
+                pl-5">
+            <li>
+              <p>2015-2020 仙台高等専門学校 電気システム工学科</p>
+            </li>
+            <li>
+              <p>2021-2022 弘前大学 電子情報工学科</p>
+            </li>
+            <li>
+              <p>2022-2024 弘前大学 大学院 地域共創科学研究科（心理学専攻）</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
