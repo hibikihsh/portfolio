@@ -1,42 +1,44 @@
 ---
+import { Github } from "../assets/icons/Github";
+
 const today = new Date();
 ---
 
-<footer class="pt-14">
-  <section class="grid gap-2 sm:flex sm:gap-4 grid-cols-4 grid-cols-auto">
-    <figure class="aspect-square sm:size-[96px] bg-gray-200 rounded-lg">
-    </figure>
-    <figure class="aspect-square sm:size-[96px] bg-gray-200 rounded-lg">
-    </figure>
-    <figure class="aspect-square sm:size-[96px] bg-gray-200 rounded-lg">
-    </figure>
-    <figure class="aspect-square sm:size-[96px] bg-gray-200 rounded-lg">
-    </figure>
-  </section>
+<footer class="text-center">
+  <div
+    class="grid gap-4 *:border *:py-2 *:border-gray-400 *:text-sm *:rounded-sm *:no-underline *:cursor-pointer sm:grid-cols-2"
+  >
+    <a
+      href="https://github.com/hibikihsh"
+      rel="noopener"
+      target="_blank"
+      class="hover:bg-gray-100 transition-all ease-in-out tracking-wider"
+    >
+      Github</a
+    >
+    <a
+      href="https://x.com/hbk_hsh"
+      rel="noopener"
+      target="_blank"
+      class="hover:bg-gray-100 transition-all ease-in-out">X</a
+    >
+    <a
+      href="https://www.instagram.com/hbk_hsh/"
+      rel="noopener"
+      target="_blank"
+      class="hover:bg-gray-100 transition-all ease-in-out tracking-wider"
+      >Instagram</a
+    >
+    <a
+      href="https://sizu.me/hbkhsh"
+      rel="noopener"
+      target="_blank"
+      class="hover:bg-gray-100 transition-all ease-in-out tracking-wider"
+      >しずかなインターネット</a
+    >
+  </div>
 
-  <div class="text-sm pt-8">
+  <div class="text-sm pt-8 text-gray-400">
     &copy; {today.getFullYear()} Hibiki Hoshi. All rights reserved.
   </div>
 </footer>
-
-<style>
-  footer {
-    color: rgb(var(--gray));
-    text-align: center;
-    /* border-top: 1px solid rgb(var(--gray-light)); */
-    padding-bottom: 2rem;
-  }
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-    padding-top: 2em;
-  }
-  .social-links a {
-    text-decoration: none;
-    color: rgb(var(--gray));
-  }
-  .social-links a:hover {
-    color: rgb(var(--gray-dark));
-  }
-</style>

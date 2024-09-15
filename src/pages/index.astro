@@ -7,125 +7,49 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import { ViewTransitions } from "astro:transitions";
 
-import Articles from "../components/Articles.astro";
-
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
+console.log(posts);
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <!-- <script
-      type="module"
-      src="https://unpkg.com/@splinetool/viewer@0.9.455/build/spline-viewer.js"
-    ></script> -->
-    <ViewTransitions />
-
-    <style>
-      h1 {
-        margin-top: 2em;
-      }
-      .title {
-        margin: 0;
-        padding: 0;
-        color: rgb(var(--black));
-        line-height: 1.5;
-        font-weight: bold;
-        font-size: 1.25rem;
-        transition: all 0.3s ease-in-out;
-      }
-      .date {
-        margin: 0;
-        padding: 0;
-        color: rgb(var(--gray));
-        font-size: 1rem;
-        padding-top: 0.5em;
-        transition: all 0.3s ease-in-out;
-      }
-
-      img,
-      figure {
-        transition: all 0.3s ease-in-out;
-      }
-      ul li a:hover h4,
-      ul li a:hover .date {
-        color: rgb(var(--accent));
-      }
-      ul a:hover img,
-      figure:hover {
-        /* box-shadow: var(--box-shadow); */
-      }
-      a {
-        text-decoration: none;
-      }
-
-      @media (max-width: 620px) {
-        ul li {
-          width: 100%;
-          text-align: left;
-        }
-        ul li:first-child {
-          margin-bottom: 0;
-        }
-        ul li:first-child .title {
-        }
-        .title {
-          padding-top: 0.5rem;
-          font-size: 1.25rem;
-        }
-        .date {
-          font-size: 0.875rem;
-        }
-      }
-
-      /* .typing-effect {
-        color: white;
-        width: 20ch;
-        animation:
-          typing 3s steps(23),
-          effect 0.5s step-end infinite alternate;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 3px solid;
-        font-family: monospace;
-        font-size: 2em;
-      }
-
-      @keyframes typing {
-        from {
-          width: 0;
-        }
-      }
-
-      @keyframes effect {
-        50% {
-          border-color: transparent;
-        }
-      } */
-    </style>
+    <!-- <ViewTransitions /> -->
   </head>
 
   <body>
-    <main class="pt-10 sm:pt-20 sm:max-w-3xl mx-auto grid gap-10">
-      <section>
-        <figure class="size-24 bg-gray-400 rounded-full overflow-hidden shadow">
-          <img src="/icon.jpg" alt="" />
-        </figure>
-        <h1 class="!text-lg !mt-2">Hibiki Hoshi</h1>
-        <a href="/about" class="pb-4 text-[#47AC4B] font-bold">About me →</a>
-      </section>
+    <main class="pt-10 sm:pt-10 sm:max-w-3xl mx-auto grid gap-10">
+      <Header />
 
       <section>
-        <h2 class="text-2xl !pb-0">Notes</h2>
-        <a href="/articles" class="pb-4 text-[#47AC4B] font-bold">Rred more →</a
-        >
-
-        <div class="pt-4">
-          <Articles />
-        </div>
+        <ul class="sm:gap-4 list-none pl-0 border-b border-gray-300">
+          {
+            posts
+              .map((post) => {
+                if (post.data.isPublished) {
+                  return (
+                    <li class="border-t border-gray-300">
+                      <a
+                        href={`/blog/${post.slug}/`}
+                        transition:name={`img-${post.data.id}`}
+                        class="no-underline py-4 sm:py-8 block"
+                      >
+                        <p class="text-xl">{post.data.title}</p>
+                        <p class="text-sm text-gray-400">
+                          {post.data.description}
+                        </p>
+                        <FormattedDate date={post.data.pubDate} />
+                      </a>
+                    </li>
+                  );
+                }
+              })
+              .reverse()
+          }
+        </ul>
       </section>
 
       <Footer />

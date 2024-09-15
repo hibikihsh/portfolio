@@ -1,7 +1,7 @@
 ---
 id: 2
-title: "OpenAIハンズオン    "
-description: "Lorem ipsum dolor sit amet"
+title: "OpenAIハンズオン"
+description: "nodejsを利用したopen ai apiの利用方法についてのメモ。"
 pubDate: "2023/11/10"
 emoji: "🤖"
 isPublished: true

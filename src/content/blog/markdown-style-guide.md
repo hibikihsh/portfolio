@@ -1,7 +1,7 @@
 ---
 id: 1
 title: "Markdownスタイルガイド"
-description: "mdファイルでコンテンツを書いていく時に使うマークアップ記法について。"
+description: "mdファイルでコンテンツを書いていく時に使うマークアップ記法について紹介します。"
 pubDate: "2023/10/01"
 # heroImage: "/markdown.jpg"
 emoji: "🧑‍💻"

@@ -1,7 +1,7 @@
 ---
 id: 3
 title: "Tailwind CSS応用"
-description: "Lorem ipsum dolor sit amet"
+description: "ta"
 pubDate: "2023/11/10"
 emoji: "🌪️"
 isPublished: false
