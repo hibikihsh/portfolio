@@ -10,7 +10,6 @@ import { ViewTransitions } from "astro:transitions";
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
-console.log(posts);
 ---
 
 <!doctype html>
