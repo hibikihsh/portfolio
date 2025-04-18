@@ -6,6 +6,7 @@ pubDate: "2023/10/01"
 # heroImage: "/markdown.jpg"
 emoji: "🧑‍💻"
 isPublished: true
+tags: ["markdown"]
 ---
 
 mdファイルでコンテンツを書いていく時に使うマークアップ記法について。

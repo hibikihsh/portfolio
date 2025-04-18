@@ -1,0 +1,194 @@
+---
+import { getCollection } from "astro:content";
+import { tagCategories } from "../types/tag";
+import AccordionNav from "./AccordionNav";
+
+const posts = await getCollection("blog");
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+---
+
+<nav class="w-[240px]">
+  <a
+    href="/"
+    class="block no-underline tracking-widest hover:bg-gray-200 p-2 rounded-md transition-all ease-in-out duration-200"
+    >Hibiki Hoshi</a
+  >
+
+  <AccordionNav client:load>
+    <a href="/blog" class="accordion-trigger no-underline">全ての投稿</a>
+    {
+      tagCategories.map((category) => {
+        const filteredTags = category.tags.filter((tag) =>
+          allTags.includes(tag),
+        );
+        if (filteredTags.length === 0) return null;
+        return (
+          <div class="accordion-item">
+            <button class="accordion-trigger" data-state="closed">
+              {category.name}
+              <span class="chevron" />
+            </button>
+            <div class="accordion-content" data-state="closed">
+              <ul class="tag-list">
+                {filteredTags.map((tag) => (
+                  <li class="tag-item">
+                    <a href={`/blog/tags/${tag}`} class="tag-link">
+                      {tag}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        );
+      })
+    }
+  </AccordionNav>
+</nav>
+
+<style>
+  .accordion-trigger {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .accordion-trigger:hover {
+    color: #18181b;
+    background: transparent;
+  }
+
+  .chevron {
+    position: relative;
+    flex: 0 0 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+
+  .chevron::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #71717a;
+    border-bottom: 2px solid #71717a;
+    transform: translate(-50%, -70%) rotate(45deg);
+    transition: border-color 0.2s ease;
+  }
+
+  .accordion-trigger:hover .chevron::before {
+    border-color: #18181b;
+  }
+
+  .accordion-trigger[data-state="open"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    overflow: hidden;
+    font-size: 0.9rem;
+    color: #52525b;
+    transition: height 0.2s ease;
+  }
+
+  .accordion-content[data-state="closed"] {
+    height: 0;
+  }
+
+  .accordion-content[data-state="open"] {
+    height: var(--content-height);
+  }
+
+  .tag-list {
+    padding: 0.5rem 0 1rem 1rem;
+  }
+
+  .tag-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .tag-link {
+    color: #52525b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .tag-link:hover {
+    color: #18181b;
+  }
+</style>
+
+<script>
+  class AccordionHandler {
+    constructor() {
+      this.initialize();
+      document.addEventListener("astro:after-swap", () => this.initialize());
+    }
+
+    initialize() {
+      const container = document.getElementById("accordion-container");
+      if (!container) return;
+
+      const triggers = container.querySelectorAll(".accordion-trigger");
+
+      triggers.forEach((trigger) => {
+        if (!(trigger instanceof HTMLElement)) return;
+
+        // Remove existing event listener to prevent duplicates
+        const boundHandler = (e: MouseEvent) => this.handleClick(e, triggers);
+        trigger.removeEventListener("click", boundHandler);
+        // Add new event listener
+        trigger.addEventListener("click", boundHandler);
+      });
+    }
+
+    handleClick(event: MouseEvent, triggers: NodeListOf<Element>) {
+      const trigger = event.currentTarget as HTMLElement;
+      const content = trigger.nextElementSibling;
+      if (!(content instanceof HTMLElement)) return;
+
+      const isOpen = trigger.getAttribute("data-state") === "open";
+
+      // Close all accordions
+      triggers.forEach((otherTrigger) => {
+        if (!(otherTrigger instanceof HTMLElement)) return;
+        if (otherTrigger !== trigger) {
+          const otherContent = otherTrigger.nextElementSibling;
+          if (!(otherContent instanceof HTMLElement)) return;
+
+          otherTrigger.setAttribute("data-state", "closed");
+          otherContent.setAttribute("data-state", "closed");
+          otherContent.style.setProperty("--content-height", "0px");
+        }
+      });
+
+      // Toggle current accordion
+      if (isOpen) {
+        trigger.setAttribute("data-state", "closed");
+        content.setAttribute("data-state", "closed");
+        content.style.setProperty("--content-height", "0px");
+      } else {
+        trigger.setAttribute("data-state", "open");
+        content.setAttribute("data-state", "open");
+        content.style.setProperty(
+          "--content-height",
+          `${content.scrollHeight}px`,
+        );
+      }
+    }
+  }
+
+  // Initialize the accordion handler
+  new AccordionHandler();
+</script>

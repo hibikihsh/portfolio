@@ -1,0 +1,130 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import Footer from "../../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import { tagCategories } from "../../../types/tag";
+import BlogNav from "../../../components/BlogNav.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { posts: posts.filter((post) => post.data.tags?.includes(tag)) },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const category = tagCategories.find((c) => c.tags.includes(tag));
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={`${tag} - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <div class="pt-10 sm:pt-10 sm:max-w-4xl mx-auto flex gap-6">
+      <BlogNav />
+
+      <main class="flex-1 px-4">
+        <h1 class="text-2xl font-bold mb-8">
+          {category ? `${category.name}: ${tag}` : tag}
+        </h1>
+        <section>
+          <ul class="sm:gap-4 list-none pl-0 border-b border-gray-300">
+            {
+              posts
+                .map((post) => {
+                  if (post.data.isPublished) {
+                    return (
+                      <li class="border-t border-gray-300">
+                        <a
+                          href={`/blog/${post.slug}/`}
+                          transition:name={`img-${post.data.id}`}
+                          class="no-underline py-4 sm:py-8 block"
+                        >
+                          <p class="text-xl">{post.data.title}</p>
+                          <p class="text-sm text-gray-400">
+                            {post.data.description}
+                          </p>
+                          <div class="flex gap-2 mt-2">
+                            {post.data.tags?.map((postTag) => {
+                              const postCategory = tagCategories.find((c) =>
+                                c.tags.includes(postTag),
+                              );
+                              return (
+                                <a
+                                  href={`/blog/tags/${postTag}`}
+                                  class="text-sm bg-gray-100 px-2 py-1 rounded-md hover:bg-gray-200 transition-all"
+                                >
+                                  {postCategory
+                                    ? `${postCategory.name}: ${postTag}`
+                                    : postTag}
+                                </a>
+                              );
+                            })}
+                          </div>
+                          <FormattedDate date={post.data.pubDate} />
+                        </a>
+                      </li>
+                    );
+                  }
+                })
+                .reverse()
+            }
+          </ul>
+        </section>
+        <Footer />
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const triggers = document.querySelectorAll(".accordion-trigger");
+
+        triggers.forEach((trigger) => {
+          if (!(trigger instanceof HTMLElement)) return;
+
+          trigger.addEventListener("click", () => {
+            const content = trigger.nextElementSibling;
+            if (!(content instanceof HTMLElement)) return;
+
+            const isOpen = trigger.getAttribute("data-state") === "open";
+
+            // Close all accordions
+            triggers.forEach((otherTrigger) => {
+              if (!(otherTrigger instanceof HTMLElement)) return;
+              if (otherTrigger !== trigger) {
+                const otherContent = otherTrigger.nextElementSibling;
+                if (!(otherContent instanceof HTMLElement)) return;
+
+                otherTrigger.setAttribute("data-state", "closed");
+                otherContent.setAttribute("data-state", "closed");
+                otherContent.style.setProperty("--content-height", "0px");
+              }
+            });
+
+            // Toggle current accordion
+            if (isOpen) {
+              trigger.setAttribute("data-state", "closed");
+              content.setAttribute("data-state", "closed");
+              content.style.setProperty("--content-height", "0px");
+            } else {
+              trigger.setAttribute("data-state", "open");
+              content.setAttribute("data-state", "open");
+              content.style.setProperty(
+                "--content-height",
+                `${content.scrollHeight}px`,
+              );
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

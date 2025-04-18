@@ -5,6 +5,7 @@ description: "nodejsを利用したopen ai apiの利用方法についてのメ�
 pubDate: "2023/11/10"
 emoji: "🤖"
 isPublished: true
+tags: ["openai", "nodejs"]
 ---
 
 > 1. [モチベーション](#モチベーション)

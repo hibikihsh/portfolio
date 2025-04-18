@@ -1,0 +1,188 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { tagCategories } from "../../types/tag";
+import BlogNav from "../../components/BlogNav.astro";
+import TagSelect from "../../components/TagSelect.astro";
+import { ViewTransitions } from "astro:transitions";
+
+const posts = await getCollection("blog");
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      .accordion-trigger {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.5rem 0;
+        font-weight: 500;
+        line-height: 1.6;
+        text-align: left;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        transition: all 0.2s ease;
+      }
+
+      .accordion-trigger:hover {
+        color: #18181b;
+        background: transparent;
+      }
+
+      .chevron {
+        position: relative;
+        flex: 0 0 20px;
+        height: 20px;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+      }
+
+      .chevron::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #71717a;
+        border-bottom: 2px solid #71717a;
+        transform: translate(-50%, -70%) rotate(45deg);
+        transition: border-color 0.2s ease;
+      }
+
+      .accordion-trigger:hover .chevron::before {
+        border-color: #18181b;
+      }
+
+      .accordion-trigger[data-state="open"] .chevron {
+        transform: rotate(180deg);
+      }
+
+      .accordion-content {
+        overflow: hidden;
+        font-size: 0.9rem;
+        color: #52525b;
+        transition: height 0.2s ease;
+      }
+
+      .accordion-content[data-state="closed"] {
+        height: 0;
+      }
+
+      .accordion-content[data-state="open"] {
+        height: var(--content-height);
+      }
+
+      .tag-list {
+        padding: 0.5rem 0 1rem 1rem;
+      }
+
+      .tag-item {
+        margin-bottom: 0.5rem;
+      }
+
+      .tag-link {
+        color: #52525b;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .tag-link:hover {
+        color: #18181b;
+      }
+    </style>
+    <ViewTransitions />
+  </head>
+  <body>
+    <div class="pt-10 sm:pt-20 sm:max-w-2xl mx-auto flex flex-col gap-6">
+      <main class="grid gap-2">
+        <TagSelect allTags={allTags} tagCategories={tagCategories} />
+        <section>
+          <ul id="post-list" class="grid sm:gap-6 list-none pl-0 pt-2">
+            {
+              posts
+                .map((post) => {
+                  if (post.data.isPublished) {
+                    return (
+                      <li
+                        class="hover:bg-gray-100 px-4 py-1 rounded-md transition-all"
+                        data-tags={post.data.tags?.join(",")}
+                      >
+                        <a
+                          href={`/blog/${post.slug}/`}
+                          transition:name={`img-${post.data.id}`}
+                          class="no-underline py-4 block"
+                        >
+                          <p class="text-xl">{post.data.title}</p>
+                          <p class="text-sm text-gray-400">
+                            {post.data.description}
+                          </p>
+                          <FormattedDate date={post.data.pubDate} />
+                        </a>
+                      </li>
+                    );
+                  }
+                })
+                .reverse()
+            }
+          </ul>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const triggers = document.querySelectorAll(".accordion-trigger");
+
+        triggers.forEach((trigger) => {
+          if (!(trigger instanceof HTMLElement)) return;
+
+          trigger.addEventListener("click", () => {
+            const content = trigger.nextElementSibling;
+            if (!(content instanceof HTMLElement)) return;
+
+            const isOpen = trigger.getAttribute("data-state") === "open";
+
+            // Close all accordions
+            triggers.forEach((otherTrigger) => {
+              if (!(otherTrigger instanceof HTMLElement)) return;
+              if (otherTrigger !== trigger) {
+                const otherContent = otherTrigger.nextElementSibling;
+                if (!(otherContent instanceof HTMLElement)) return;
+
+                otherTrigger.setAttribute("data-state", "closed");
+                otherContent.setAttribute("data-state", "closed");
+                otherContent.style.setProperty("--content-height", "0px");
+              }
+            });
+
+            // Toggle current accordion
+            if (isOpen) {
+              trigger.setAttribute("data-state", "closed");
+              content.setAttribute("data-state", "closed");
+              content.style.setProperty("--content-height", "0px");
+            } else {
+              trigger.setAttribute("data-state", "open");
+              content.setAttribute("data-state", "open");
+              content.style.setProperty(
+                "--content-height",
+                `${content.scrollHeight}px`,
+              );
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

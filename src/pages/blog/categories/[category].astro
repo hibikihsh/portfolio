@@ -1,0 +1,120 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import { tagCategories } from "../../../types/tag";
+
+export async function getStaticPaths() {
+  return tagCategories.map((category) => ({
+    params: { category: category.name },
+    props: { category },
+  }));
+}
+
+const { category: categoryName } = Astro.params;
+const { category } = Astro.props;
+const posts = await getCollection("blog");
+const categoryPosts = posts.filter(
+  (post) =>
+    post.data.isPublished &&
+    post.data.tags?.some((tag) => category.tags.includes(tag)),
+);
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead
+      title={`${categoryName} - ${SITE_TITLE}`}
+      description={SITE_DESCRIPTION}
+    />
+  </head>
+  <body>
+    <div class="pt-10 sm:pt-10 sm:max-w-4xl mx-auto flex">
+      <nav class="cursor-pointer w-[200px]">
+        <a
+          href="/"
+          class="no-underline tracking-widest hover:bg-gray-200 p-2 rounded-md transition-all ease-in-out duration-200"
+          >Hibiki Hoshi</a
+        >
+
+        <ul class="flex flex-col gap-4 list-none pl-2 pt-4">
+          <li>
+            <a href="/blog">All Posts</a>
+          </li>
+          {
+            tagCategories.map((c) => (
+              <li>
+                <a
+                  href={`/blog/categories/${c.name}`}
+                  class={`font-bold text-gray-700 mb-2 hover:text-gray-900 transition-colors ${
+                    c.name === categoryName ? "text-gray-900" : ""
+                  }`}
+                >
+                  {c.name}
+                </a>
+                <ul class="list-none pl-2">
+                  {c.tags
+                    .filter((t) => allTags.includes(t))
+                    .map((t) => (
+                      <li class="mb-1">
+                        <a
+                          href={`/blog/tags/${t}`}
+                          class="text-gray-600 hover:text-gray-900 transition-colors"
+                        >
+                          {t}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <main class="flex-1 px-4">
+        <h1 class="text-2xl mb-4">{categoryName}の記事一覧</h1>
+        <section>
+          <ul class="sm:gap-4 list-none pl-0 border-b border-gray-300">
+            {
+              categoryPosts.map((post) => (
+                <li class="border-t border-gray-300">
+                  <a
+                    href={`/blog/${post.slug}/`}
+                    transition:name={`img-${post.data.id}`}
+                    class="no-underline py-4 sm:py-8 block"
+                  >
+                    <p class="text-xl">{post.data.title}</p>
+                    <p class="text-sm text-gray-400">{post.data.description}</p>
+                    <div class="flex gap-2 mt-2">
+                      {post.data.tags?.map((t) => {
+                        const tagCategory = tagCategories.find((c) =>
+                          c.tags.includes(t),
+                        );
+                        return (
+                          <a
+                            href={`/blog/tags/${t}`}
+                            class="text-sm bg-gray-100 px-2 py-1 rounded-md hover:bg-gray-200 transition-all"
+                          >
+                            {tagCategory ? `${tagCategory.name}: ${t}` : t}
+                          </a>
+                        );
+                      })}
+                    </div>
+                    <FormattedDate date={post.data.pubDate} />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+        <Footer />
+      </main>
+    </div>
+  </body>
+</html>
