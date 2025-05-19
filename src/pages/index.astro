@@ -25,8 +25,30 @@ const memos = data.pages
   </head>
 
   <body>
-    <main class="pt-10 sm:py-20 sm:max-w-2xl mx-auto">
-      <div class="grid gap-16 flex-1">
+    <div
+      class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 text-white rounded-xl flex items-center flex-col"
+    >
+      <nav
+        id="slideNav"
+        class="bg-[#333] w-[200px] fixed bottom-12 left-1/2 -translate-x-1/2 translate-y-8 opacity-0 pointer-events-none transition-all duration-300 z-50 rounded-md px-2 py-4"
+      >
+        <ul class="grid gap-3">
+          <li>
+            <a href="/" class="text-white">Home</a>
+          </li>
+          <li>
+            <a href="/about" class="text-white">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <button id="menuBtn" class="bg-[#333] w-[120px] py-1 rounded-md z-50"
+        >Menu</button
+      >
+    </div>
+
+    <main class="pt-10 sm:pt-20 sm:max-w-2xl mx-auto w-full">
+      <div class="flex flex-col gap-16 flex-1">
         <section>
           <img
             src="/me.png"
@@ -40,18 +62,55 @@ const memos = data.pages
         <section class="border-y py-6">
           <p>ものづくりが好きなエンジニアです。</p>
 
-          <p>🍣 宮城県塩竈市出身。🍎 青森県弘前市に住んでいます。</p>
+          <p>宮城県塩竈市出身。青森県弘前市在住 。</p>
 
           <p>
             仙台高等専門学校卒業後、弘前大学に編入学。学士までは電気・電子情報工学を専攻。<br
             />
-            学士卒業後は、同大学院に地域系の学部に進学。心理学を学んでいました。
+            学士卒業後は、同大学院の地域系の学部に進学。心理学を学んでいました。
           </p>
 
           <p>
-            趣味はスポーツ全般。特にバスケットボール🏀が好き。
+            趣味はスポーツ全般。特にバスケットボールが好き。
             <br />マイブームは旅行。台湾行ったり、長崎行ったり。
           </p>
+
+          <div class="overflow-x-auto w-full pt-4 pb-4">
+            <ul class="flex list-none pl-0 gap-4 min-w-max">
+              <li>
+                <img
+                  src="/gyutan.png"
+                  alt=""
+                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+                />
+                <small class="text-gray-400">牛タン</small>
+              </li>
+              <li>
+                <img
+                  src="/sakura.png"
+                  alt=""
+                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+                />
+                <small class="text-gray-400">弘前の桜</small>
+              </li>
+              <li>
+                <img
+                  src="/gunkanzima.png"
+                  alt=""
+                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+                />
+                <small class="text-gray-400">長崎の軍艦島</small>
+              </li>
+              <li>
+                <img
+                  src="/kyuhun.png"
+                  alt=""
+                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+                />
+                <small class="text-gray-400">九份</small>
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section>
@@ -74,6 +133,7 @@ const memos = data.pages
 
         <Footer />
       </div>
+
       <!-- <section>
           <h2 class="text-2xl font-bold">Blogs</h2>
           <ul class="sm:gap-2 list-none pl-0 pt-2">
@@ -146,5 +206,37 @@ const memos = data.pages
           </a>
         </section> -->
     </main>
+
+    <script is:inline>
+      const btn = document.getElementById("menuBtn");
+      const nav = document.getElementById("slideNav");
+      let open = false;
+      btn.addEventListener("click", () => {
+        open = !open;
+        if (open) {
+          nav.classList.remove(
+            "translate-y-8",
+            "opacity-0",
+            "pointer-events-none",
+          );
+          nav.classList.add(
+            "translate-y-0",
+            "opacity-100",
+            "pointer-events-auto",
+          );
+        } else {
+          nav.classList.add(
+            "translate-y-8",
+            "opacity-0",
+            "pointer-events-none",
+          );
+          nav.classList.remove(
+            "translate-y-0",
+            "opacity-100",
+            "pointer-events-auto",
+          );
+        }
+      });
+    </script>
   </body>
 </html>
