@@ -19,34 +19,69 @@ const memos = data.pages
   .slice(0, 4);
 ---
 
-<!doctype html>
 <html lang="ja">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <ViewTransitions />
   </head>
 
   <body>
-    <main class="pt-10 sm:pt-20 sm:max-w-2xl mx-auto flex">
-      <div class="grid gap-20 flex-1">
-        <section class="px-4">
+    <main class="pt-10 sm:py-20 sm:max-w-2xl mx-auto">
+      <div class="grid gap-16 flex-1">
+        <section>
           <img
             src="/me.png"
             alt=""
             class="rounded-full w-32 h-32 hover:animate-spin hover:animate-duration-[3000ms]"
           />
           <h1 class="text-3xl font-bold pt-4">Hibiki Hoshi</h1>
-          <p class="text-gray-400">Frontend Developer</p>
+          <p class="text-gray-400">Developer</p>
+        </section>
+
+        <section class="border-y py-6">
+          <p>ものづくりが好きなエンジニアです。</p>
+
+          <p>🍣 宮城県塩竈市出身。🍎 青森県弘前市に住んでいます。</p>
+
+          <p>
+            仙台高等専門学校卒業後、弘前大学に編入学。学士までは電気・電子情報工学を専攻。<br
+            />
+            学士卒業後は、同大学院に地域系の学部に進学。心理学を学んでいました。
+          </p>
+
+          <p>
+            趣味はスポーツ全般。特にバスケットボール🏀が好き。
+            <br />マイブームは旅行。台湾行ったり、長崎行ったり。
+          </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold px-4">Blogs</h2>
+          <h2 class="text-2xl font-bold">学歴</h2>
+          <ul class="grid gap-1">
+            <li>
+              2022-2024 弘前大学大学院 地域共創科学研究科 地域リノベーション専攻
+            </li>
+            <li>2020-2022 弘前大学 理工学部 電子情報工学科</li>
+            <li>2016-2020 仙台高等専門学校 名取キャンパス</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold">経歴</h2>
+          <ul class="grid gap-1">
+            <li>2021/12~ farmin合同会社</li>
+          </ul>
+        </section>
+
+        <Footer />
+      </div>
+      <!-- <section>
+          <h2 class="text-2xl font-bold">Blogs</h2>
           <ul class="sm:gap-2 list-none pl-0 pt-2">
             {
               posts.map((post) => {
                 if (post.data.isPublished) {
                   return (
-                    <li class="hover:bg-gray-100 px-4 py-1 rounded-md transition-all">
+                    <li class="hover:bg-gray-100 py-1 rounded-md transition-all">
                       <a
                         href={`/blog/${post.slug}/`}
                         transition:name={`img-${post.data.id}`}
@@ -71,10 +106,10 @@ const memos = data.pages
           >
             Read more →
           </a>
-        </section>
+        </section> -->
 
-        <section>
-          <h2 class="text-2xl font-bold px-4">Code memos</h2>
+      <!-- <section>
+          <h2 class="text-2xl font-bold">Code memos</h2>
           <ul
             class="sm:gap-2 list-none pl-0 pt-2 grid grid-cols-1 sm:grid-cols-2 grid-rows-subgrid"
           >
@@ -109,10 +144,7 @@ const memos = data.pages
           >
             View all memos →
           </a>
-        </section>
-
-        <Footer />
-      </div>
+        </section> -->
     </main>
   </body>
 </html>
