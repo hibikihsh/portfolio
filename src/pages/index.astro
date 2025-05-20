@@ -25,38 +25,32 @@ const memos = data.pages
   </head>
 
   <body>
-    <div
-      class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 text-white rounded-xl flex items-center flex-col"
-    >
-      <nav
-        id="slideNav"
-        class="bg-[#333] w-[200px] fixed bottom-12 left-1/2 -translate-x-1/2 translate-y-8 opacity-0 pointer-events-none transition-all duration-300 z-50 rounded-md px-2 py-4"
-      >
-        <ul class="grid gap-3">
-          <li>
-            <a href="/" class="text-white">Home</a>
-          </li>
-          <li>
-            <a href="/about" class="text-white">About</a>
-          </li>
-        </ul>
-      </nav>
-
-      <button id="menuBtn" class="bg-[#333] w-[120px] py-1 rounded-md z-50"
-        >Menu</button
-      >
-    </div>
-
     <main class="pt-10 sm:pt-20 sm:max-w-2xl mx-auto w-full">
       <div class="flex flex-col gap-16 flex-1">
-        <section>
-          <img
-            src="/me.png"
-            alt=""
-            class="rounded-full w-32 h-32 hover:animate-spin hover:animate-duration-[3000ms]"
-          />
-          <h1 class="text-3xl font-bold pt-4">Hibiki Hoshi</h1>
-          <p class="text-gray-400">Developer</p>
+        <section class="flex justify-between">
+          <div>
+            <img
+              src="/me.png"
+              alt=""
+              class="rounded-full w-32 h-32 hover:animate-spin hover:animate-duration-[3000ms]"
+            />
+            <h1 class="text-3xl font-bold pt-4">Hibiki Hoshi</h1>
+            <p class="text-gray-400">Developer</p>
+          </div>
+
+          <nav>
+            <ul class="flex list-none pl-0 gap-3 min-w-max text-gray-400">
+              <li>
+                <a href="/" class="no-underline">Home</a>
+              </li>/
+              <li>
+                <a href="/blog" class="no-underline">Blog</a>
+              </li>/
+              <li>
+                <a href="/contacts" class="no-underline">Contacts</a>
+              </li>
+            </ul>
+          </nav>
         </section>
 
         <section class="border-y py-6">
@@ -114,68 +108,24 @@ const memos = data.pages
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold">学歴</h2>
-          <ul class="grid gap-1">
-            <li>
-              2022-2024 弘前大学大学院 地域共創科学研究科 地域リノベーション専攻
-            </li>
-            <li>2020-2022 弘前大学 理工学部 電子情報工学科</li>
-            <li>2016-2020 仙台高等専門学校 名取キャンパス</li>
-          </ul>
-        </section>
+          <div class="sm:flex justify-between items-center">
+            <h2 class="text-xl font-bold pb-0">気づき・メモ</h2>
+            <a
+              href="https://scrapbox.io/hibikihsh"
+              class="text-sm text-gray-400 sm:text-right block mt-2 sm:pt-0 hover:text-gray-600 transition-all"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View all memos →
+            </a>
+          </div>
 
-        <section>
-          <h2 class="text-2xl font-bold">経歴</h2>
-          <ul class="grid gap-1">
-            <li>2021/12~ farmin合同会社</li>
-          </ul>
-        </section>
-
-        <Footer />
-      </div>
-
-      <!-- <section>
-          <h2 class="text-2xl font-bold">Blogs</h2>
-          <ul class="sm:gap-2 list-none pl-0 pt-2">
-            {
-              posts.map((post) => {
-                if (post.data.isPublished) {
-                  return (
-                    <li class="hover:bg-gray-100 py-1 rounded-md transition-all">
-                      <a
-                        href={`/blog/${post.slug}/`}
-                        transition:name={`img-${post.data.id}`}
-                        class="no-underline py-4 block"
-                      >
-                        <p class="text-xl">{post.data.title}</p>
-                        <p class="text-sm text-gray-400">
-                          {post.data.description}
-                        </p>
-                        <FormattedDate date={post.data.pubDate} />
-                      </a>
-                    </li>
-                  );
-                }
-              })
-            }
-          </ul>
-
-          <a
-            href="/blog"
-            class="text-sm text-gray-400 text-right block mt-4 hover:text-gray-600 transition-all"
-          >
-            Read more →
-          </a>
-        </section> -->
-
-      <!-- <section>
-          <h2 class="text-2xl font-bold">Code memos</h2>
           <ul
-            class="sm:gap-2 list-none pl-0 pt-2 grid grid-cols-1 sm:grid-cols-2 grid-rows-subgrid"
+            class="sm:gap-4 list-none pl-0 pt-2 grid grid-cols-1 sm:grid-cols-2 grid-rows-subgrid"
           >
             {
               memos.map((memo: any) => (
-                <li class="mx-4 my-2 grid grid-rows-subgrid">
+                <li class="my-2 grid grid-rows-subgrid">
                   <a
                     href={`https://scrapbox.io/hibikihsh/${memo.title}`}
                     class="p-4 bg-gray-50 rounded-md shadow-md hover:shadow-lg transition-all transform rotate-0 hover:-rotate-1 h-full flex flex-col no-underline"
@@ -195,16 +145,28 @@ const memos = data.pages
               ))
             }
           </ul>
+        </section>
 
-          <a
-            href="https://scrapbox.io/hibikihsh"
-            class="text-sm text-gray-400 text-right block mt-4 hover:text-gray-600 transition-all px-4"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View all memos →
-          </a>
-        </section> -->
+        <section>
+          <h2 class="text-xl font-bold">学歴</h2>
+          <ul class="grid gap-1">
+            <li>
+              2022-2024 弘前大学大学院 地域共創科学研究科 地域リノベーション専攻
+            </li>
+            <li>2020-2022 弘前大学 理工学部 電子情報工学科</li>
+            <li>2016-2020 仙台高等専門学校 名取キャンパス</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold">経歴</h2>
+          <ul class="grid gap-1">
+            <li>2021/12~ farmin合同会社</li>
+          </ul>
+        </section>
+
+        <Footer />
+      </div>
     </main>
 
     <script is:inline>
