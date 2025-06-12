@@ -1,0 +1,120 @@
+---
+// AboutModal.astro
+---
+
+<!-- Modal -->
+<div
+  id="aboutModal"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50"
+>
+  <div
+    class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto transform scale-95 transition-transform duration-300"
+    id="modalContent"
+  >
+    <div class="flex justify-between items-start mb-4">
+      <h2 class="text-2xl font-bold">About</h2>
+      <button
+        id="closeModal"
+        class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >&times;</button
+      >
+    </div>
+
+    <div id="about">
+      <p>ものづくりが好きなエンジニアです。</p>
+
+      <p>宮城県塩竈市出身。青森県弘前市在住 。</p>
+
+      <p>
+        仙台高等専門学校卒業後、弘前大学に編入学。学士までは電気・電子情報工学を専攻。<br
+        />
+        学士卒業後は、同大学院の地域系の学部に進学。心理学を学んでいました。
+      </p>
+
+      <p>
+        趣味はスポーツ全般。特にバスケットボールが好き。
+        <br />マイブームは旅行。台湾行ったり、長崎行ったり。
+      </p>
+
+      <div class="overflow-x-auto w-full pt-4 pb-4">
+        <ul class="flex list-none pl-0 gap-4 min-w-max">
+          <li>
+            <img
+              src="/gyutan.png"
+              alt=""
+              class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+            />
+            <small class="text-gray-400">牛タン</small>
+          </li>
+          <li>
+            <img
+              src="/sakura.png"
+              alt=""
+              class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+            />
+            <small class="text-gray-400">弘前の桜</small>
+          </li>
+          <li>
+            <img
+              src="/gunkanzima.png"
+              alt=""
+              class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+            />
+            <small class="text-gray-400">長崎の軍艦島</small>
+          </li>
+          <li>
+            <img
+              src="/kyuhun.png"
+              alt=""
+              class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
+            />
+            <small class="text-gray-400">九份</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // About モーダルのスクリプト
+  const aboutBtn = document.getElementById("aboutBtn");
+  const aboutModal = document.getElementById("aboutModal");
+  const closeModal = document.getElementById("closeModal");
+  const modalContent = document.getElementById("modalContent");
+
+  if (aboutBtn && aboutModal && closeModal && modalContent) {
+    // モーダルを開く
+    aboutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      aboutModal.classList.remove("opacity-0", "pointer-events-none");
+      aboutModal.classList.add("opacity-100", "pointer-events-auto");
+      modalContent.classList.remove("scale-95");
+      modalContent.classList.add("scale-100");
+    });
+
+    // モーダルを閉じる
+    const closeModalFunc = () => {
+      aboutModal.classList.add("opacity-0", "pointer-events-none");
+      aboutModal.classList.remove("opacity-100", "pointer-events-auto");
+      modalContent.classList.add("scale-95");
+      modalContent.classList.remove("scale-100");
+    };
+
+    closeModal.addEventListener("click", closeModalFunc);
+
+    // 背景をクリックしても閉じる
+    aboutModal.addEventListener("click", (e) => {
+      if (e.target === aboutModal) {
+        closeModalFunc();
+      }
+    });
+
+    // ESCキーでも閉じる
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !aboutModal.classList.contains("opacity-0")) {
+        closeModalFunc();
+      }
+    });
+  }
+</script>

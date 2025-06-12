@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import AboutModal from "../components/AboutModal.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -36,6 +37,7 @@ const memos = data.pages
             />
             <h1 class="text-3xl font-bold pt-4">Hibiki Hoshi</h1>
             <p class="text-gray-400">Developer</p>
+            <a href="#" class="no-underline" id="aboutBtn">about →</a>
           </div>
 
           <nav class="absolute top-0 right-0">
@@ -55,60 +57,6 @@ const memos = data.pages
               </li>
             </ul>
           </nav>
-        </section>
-
-        <section class="border-y py-6">
-          <p>ものづくりが好きなエンジニアです。</p>
-
-          <p>宮城県塩竈市出身。青森県弘前市在住 。</p>
-
-          <p>
-            仙台高等専門学校卒業後、弘前大学に編入学。学士までは電気・電子情報工学を専攻。<br
-            />
-            学士卒業後は、同大学院の地域系の学部に進学。心理学を学んでいました。
-          </p>
-
-          <p>
-            趣味はスポーツ全般。特にバスケットボールが好き。
-            <br />マイブームは旅行。台湾行ったり、長崎行ったり。
-          </p>
-
-          <div class="overflow-x-auto w-full pt-4 pb-4">
-            <ul class="flex list-none pl-0 gap-4 min-w-max">
-              <li>
-                <img
-                  src="/gyutan.png"
-                  alt=""
-                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
-                />
-                <small class="text-gray-400">牛タン</small>
-              </li>
-              <li>
-                <img
-                  src="/sakura.png"
-                  alt=""
-                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
-                />
-                <small class="text-gray-400">弘前の桜</small>
-              </li>
-              <li>
-                <img
-                  src="/gunkanzima.png"
-                  alt=""
-                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
-                />
-                <small class="text-gray-400">長崎の軍艦島</small>
-              </li>
-              <li>
-                <img
-                  src="/kyuhun.png"
-                  alt=""
-                  class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]"
-                />
-                <small class="text-gray-400">九份</small>
-              </li>
-            </ul>
-          </div>
         </section>
 
         <section>
@@ -152,20 +100,17 @@ const memos = data.pages
         </section>
 
         <section>
-          <h2 class="text-xl font-bold">学歴</h2>
-          <ul class="grid gap-1">
-            <li>
-              2022-2024 弘前大学大学院 地域共創科学研究科 地域リノベーション専攻
-            </li>
-            <li>2020-2022 弘前大学 理工学部 電子情報工学科</li>
-            <li>2016-2020 仙台高等専門学校 名取キャンパス</li>
-          </ul>
-        </section>
-
-        <section>
           <h2 class="text-xl font-bold">経歴</h2>
           <ul class="grid gap-1">
-            <li>2021/12~ farmin合同会社</li>
+            <li>2021/12-現在　farmin合同会社</li>
+            <li>
+              2022-2024　弘前大学大学院 地域共創科学研究科
+              地域リノベーション専攻
+            </li>
+            <li>2020-2022　弘前大学 理工学部 電子情報工学科</li>
+            <li>
+              2015-2020　仙台高等専門学校 名取キャンパス 電気システム工学科
+            </li>
           </ul>
         </section>
 
@@ -173,36 +118,40 @@ const memos = data.pages
       </div>
     </main>
 
+    <AboutModal />
+
     <script is:inline>
       const btn = document.getElementById("menuBtn");
       const nav = document.getElementById("slideNav");
       let open = false;
-      btn.addEventListener("click", () => {
-        open = !open;
-        if (open) {
-          nav.classList.remove(
-            "translate-y-8",
-            "opacity-0",
-            "pointer-events-none",
-          );
-          nav.classList.add(
-            "translate-y-0",
-            "opacity-100",
-            "pointer-events-auto",
-          );
-        } else {
-          nav.classList.add(
-            "translate-y-8",
-            "opacity-0",
-            "pointer-events-none",
-          );
-          nav.classList.remove(
-            "translate-y-0",
-            "opacity-100",
-            "pointer-events-auto",
-          );
-        }
-      });
+      if (btn && nav) {
+        btn.addEventListener("click", () => {
+          open = !open;
+          if (open) {
+            nav.classList.remove(
+              "translate-y-8",
+              "opacity-0",
+              "pointer-events-none",
+            );
+            nav.classList.add(
+              "translate-y-0",
+              "opacity-100",
+              "pointer-events-auto",
+            );
+          } else {
+            nav.classList.add(
+              "translate-y-8",
+              "opacity-0",
+              "pointer-events-none",
+            );
+            nav.classList.remove(
+              "translate-y-0",
+              "opacity-100",
+              "pointer-events-auto",
+            );
+          }
+        });
+      }
     </script>
   </body>
 </html>
